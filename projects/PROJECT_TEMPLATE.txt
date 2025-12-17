@@ -1,0 +1,16 @@
+Each project page has:
+1. Navigation with back link
+2. Project header with title, metadata, and tags
+3. Overview section
+4. Your Role/Contributions
+5. Technical Approach
+6. Results
+7. Image gallery placeholders (add your images)
+8. Resources section (add PDFs, links)
+
+To customize:
+- Replace gallery placeholders with: <img src="../images/yourimage.jpg" style="width:100%; height:250px; object-fit:cover;">
+- Add PDF links: <a href="../documents/yourfile.pdf" class="resource-card">
+- Update text in each section
+
+All pages use the same styling as your main portfolio.

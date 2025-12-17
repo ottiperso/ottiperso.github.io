@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineering Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0A1628;
+            --secondary: #1A2F4F;
+            --accent: #00D9FF;
+            --accent-warm: #FF6B35;
+            --text-primary: #E8EDF2;
+            --text-secondary: #A8B2C1;
+            --bg-dark: #05090F;
+            --grid-color: rgba(0, 217, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Technical grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.3;
+        }
+
+        /* Animated accent glow */
+        body::after {
+            content: '';
+            position: fixed;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0, 217, 255, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            animation: glow-pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.1); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(5, 9, 15, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+            z-index: 100;
+            padding: 20px 0;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 50px;
+            position: relative;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 5rem;
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-text .name {
+            background: linear-gradient(135deg, var(--accent), var(--accent-warm));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text .tagline {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 600px;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            font-size: 1rem;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--text-primary);
+            box-shadow: 0 0 30px rgba(0, 217, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        .hero-visual {
+            position: relative;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        @media (min-width: 1200px) {
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .stat-card {
+            background: rgba(26, 47, 79, 0.4);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+            animation: scanline 3s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .stat-number {
+            font-family: 'Space Mono', monospace;
+            font-size: 2.5rem;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-header {
+            margin-bottom: 60px;
+        }
+
+        .section-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .section-description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: rgba(26, 47, 79, 0.3);
+            border: 1px solid rgba(0, 217, 255, 0.15);
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .project-card:hover::before {
+            left: 100%;
+        }
+
+        .project-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 217, 255, 0.2);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--accent);
+            border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .project-content {
+            padding: 30px;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            padding: 5px 12px;
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            color: var(--accent);
+        }
+
+        .project-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: gap 0.3s ease;
+        }
+
+        .project-link:hover {
+            gap: 10px;
+        }
+
+        /* Experience Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent), transparent);
+        }
+
+        .timeline-item {
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -56px;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            background: var(--accent);
+            border: 3px solid var(--bg-dark);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--accent);
+        }
+
+        .timeline-date {
+            font-family: 'Space Mono', monospace;
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .timeline-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .timeline-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .timeline-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        .timeline-description a {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+        
+        .timeline-description a:hover {
+            color: var(--accent-warm);
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-category {
+            background: rgba(26, 47, 79, 0.3);
+            border: 1px solid rgba(0, 217, 255, 0.15);
+            padding: 30px;
+        }
+
+        .skill-category h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+            font-family: 'Space Mono', monospace;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-item {
+            padding: 8px 16px;
+            background: rgba(0, 217, 255, 0.05);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover {
+            background: rgba(0, 217, 255, 0.15);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Contact Section */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-info p {
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: rgba(26, 47, 79, 0.3);
+            border: 1px solid rgba(0, 217, 255, 0.15);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .contact-method:hover {
+            border-color: var(--accent);
+            background: rgba(26, 47, 79, 0.5);
+            transform: translateX(10px);
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-family: 'Space Mono', monospace;
+            color: var(--accent);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 15px;
+            background: rgba(26, 47, 79, 0.3);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            color: var(--text-primary);
+            font-family: 'Work Sans', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 22, 40, 0.8);
+            border-top: 1px solid rgba(0, 217, 255, 0.2);
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        footer p {
+            color: var(--text-secondary);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .hero-text h1 {
+                font-size: 3.5rem;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">OTTAVIA PERSONENI</div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#leadership">Leadership</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <!-- <li><a href="#skills">Skills</a></li> -->
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <section id="about" div class="hero-content">
+                <div class="hero-text">
+                    <h1>
+                        Hi, I'm<br>
+                        <span class="name">Ottavia Personeni</span>
+                    </h1>
+                    <p class="tagline">MIT Mechanical Engineering BS '25<br>Stanford Aerospace Engineering MS '27</p>
+                    <!-- <p> </p> -->
+                    <p><br>My experience and projects focus on robotics – both mechatronics and software & controls.<br><br>I'm passionate about pushing the boundaries of autonomous aerospace systems, working towards a future of space labor where robotics enhance astronaut capabilities and redefine human robot collaboration in space.<br><br>Fun fact: my name is on the moon 🌖</p>
+                    <!-- <p>Passionate about designing, building, and innovating.<br>Passionate about pushing the boundaries of aerospace technology and autonomous systems.<br>Experience, coursework, and projects focused on robotics: both mechatronics and software & controls.<br><br>Fun fact: my name is on the moon 🌖</p> -->
+                    <div class="cta-buttons">
+                        <a href="#projects" class="btn btn-primary">View Projects</a>
+                        <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="stats-grid" style="grid-template-columns: repeat(2, 1fr);">
+                        <!-- <div class="stat-card">
+                            <div class="stat-number">10+</div>
+                            <div class="stat-label">Technical Projects</div>
+                        </div> -->
+                        <!-- <div class="stat-card">
+                            <div class="stat-number">3</div>
+                            <div class="stat-label">Industry Internships</div>
+                        </div> -->
+                        <!-- <div class="stat-card">
+                            <div class="stat-number">15K</div>
+                            <div class="stat-label">People Presented To</div>
+                        </div> -->
+                        <div class="stat-card">
+                            <div class="stat-number">4.9/5.0</div>
+                            <div class="stat-label">UNDERGRAD GPA</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">4.1/4.0</div>
+                            <div class="stat-label">CURRENT GRAD GPA</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">4x</div>
+                            <div class="stat-label">D3 All-American Athlete</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">1</div>
+                            <div class="stat-label">Hardware on the Moon</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">// Portfolio</div>
+                <h2 class="section-title">Featured Projects</h2>
+                <p class="section-description">A selection of my academic, research, and internship projects.</p>
+            </div>
+            <div class="projects-grid">
+
+                <!-- Arcade Game -->
+                <div class="project-card">
+                    <!-- <div class="project-image">🎮</div> -->
+                    <div class="project-image"><img src="images/me218a_electronics2.png" alt="Dungeon Attack" style="width:90%; height:100%; object-fit:cover;"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">Smart Product Design: Dungeon Attack Arcade Game</h3>
+                        <p class="project-description">Whack-a-mole inspired arcade game with custom embedded system framework and mechatronics components. Battle zombies and collect treasure in the Steam Punk Apocalypse!</p>
+                        <div class="project-tags">
+                            <span class="tag">Embedded System Frameworks</span>
+                            <span class="tag">Mechatronics</span>
+                            <span class="tag">C++</span>
+                            <span class="tag">Game Design</span>
+                        </div>
+                        <a href="projects/me218a-arcade.html" class="project-link">View Details →</a>
+                    </div>
+                </div>
+
+                <!-- NepΨune -->
+                <div class="project-card">
+                    <!-- <div class="project-image">🌊</div> -->
+                    <div class="project-image"><img src="images/neptune_scuba.png" alt="neptune page" style="width:100%; height:100%; object-fit:cover;"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">NepΨune: Underwater Communication Device</h3>
+                        <p class="project-description">MIT 2.009 capstone project. Designed and built a three-piece underwater communication device for scuba divers. Presented to 15,000 people (online and in person).</p>
+                        <div class="project-tags">
+                            <span class="tag">Product Design</span>
+                            <span class="tag">Bone Conduction</span>
+                            <span class="tag">Sonar Technology & Encoding</span>
+                            <span class="tag">Underwater Communication & Electronics</span>
+                            <!-- <span class="tag">Scuba Diving</span> -->
+                        </div>
+                        <a href="projects/neptune.html" class="project-link">View Details →</a>
+                    </div>
+                </div>
+
+                <!-- Firefly Aerospace Internship -->
+                <div class="project-card">
+                    <!-- <div class="project-image">🌕</div> -->
+                    <div class="project-image"><img src="images/firefly_bg_moon.jpeg" alt="firefly page" style="width:100%; height:100%; object-fit:cover;"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">Firefly Aerospace - Blue Ghost Lunar Lander Internship</h3>
+                        <p class="project-description">Built and programmed a high-fidelity simulation testbed to verify lunar lander commands. Designed and installed a Firefly plaque onto the lunar lander (which has successfully landed on the Moon!)</p>
+                        <div class="project-tags">
+                            <span class="tag">Spacecraft Avionics</span>
+                            <!-- <span class="tag">Simulation</span> -->
+                            <span class="tag">Python, C++</span>
+                            <span class="tag">Testing & Validation</span>
+                            <span class="tag">Hardware Design & Integration</span>
+                        </div>
+                        <a href="projects/firefly.html" class="project-link">View Details →</a>
+                    </div>
+                </div>
+
+                <!-- Marine Robotics Summer School -->
+                <div class="project-card">
+                    <!-- <div class="project-image">🤖</div> -->
+                    <div class="project-image"><img src="images/marine_page.jpeg" alt="MRSS Page" style="width:100%; height:100%; object-fit:cover;"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">Algaenaut ROV - MIT Portugal Marine Robotics Summer School</h3>
+                        <p class="project-description">Selected as 1 of 12 MIT post-grad students for an intensive marine robotics program in the Azores. Designed and built an ROV for tracking invasive algae around Faial Island.</p>
+                        <div class="project-tags">
+                            <span class="tag">Marine Robotics</span>
+                            <span class="tag">ROV Design</span>
+                            <span class="tag">Ecosystem Monitoring</span>
+                        </div>
+                        <a href="projects/marine-robotics.html" class="project-link">View Details →</a>
+                    </div>
+                </div>
+
+                <!-- Hall Thruster -->
+                <div class="project-card">
+                    <!-- <div class="project-image">🚀</div> -->
+                    <div class="project-image"><img src="images/hall_beam.png" alt="MRSS Page" style="width:100%; height:100%; object-fit:cover;"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">Hall Thruster - 16.522 Space Propulsion</h3>
+                        <p class="project-description">Built and tested a Hall thruster in the MIT SPL's AstroVac vacuum chamber. Analyzed plasma behavior, thrust, and efficiency performance using diagnostic tools.</p>
+                        <div class="project-tags">
+                            <span class="tag">Electric Propulsion</span>
+                            <span class="tag">Testing</span>
+                            <span class="tag">Plasma Physics</span>
+                        </div>
+                        <a href="projects/hall-thruster.html" class="project-link">View Details →</a>
+                    </div>
+                </div>
+
+                <!-- PUMPY -->
+                <div class="project-card">
+                    <!-- <div class="project-image">⚡</div> -->
+                    <div class="project-image"><img src="images/pumpy_page.png" alt="calipso page" style="width:100%; height:100%; object-fit:cover;"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">CALIPSO: Hydrogen-Powered UUV Buoyancy Engine</h3>
+                        <p class="project-description">Novel buoyancy engine using aluminum-water reaction to generate hydrogen gas for UUV movement. Extends mission times and reduces operational costs compared to traditional battery systems.</p>
+                        <div class="project-tags">
+                            <span class="tag">UUV & Energy Systems</span>
+                            <span class="tag">Controls Software</span>
+                            <span class="tag">Systems Engineering</span>
+                            <span class="tag">Buoyancy Engine</span>
+                        </div>
+                        <a href="projects/pumpy.html" class="project-link">View Details →</a>
+                    </div>
+                </div>
+
+                <!-- Electrospray Research -->
+                <div class="project-card">
+                    <!-- <div class="project-image">🔬</div> -->
+                    <div class="project-image"><img src="images/spl_plate.jpeg" alt="spl page" style="width:100%; height:100%; object-fit:cover;"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">MIT Space Propulsion Lab - Electrospray Thruster Research</h3>
+                        <p class="project-description">Undergraduate researcher fabricating and optimizing electrospray thrusters. Cleanroom fabrication, vacuum chamber testing, and performance analysis.</p>
+                        <div class="project-tags">
+                            <!-- <span class="tag">Electric Propulsion</span> -->
+                            <span class="tag">Electrospray Thrusters</span>
+                            <!-- <span class="tag">Ionic Liquid Ion Sources</span> -->
+                            <span class="tag">Nanofabrication</span>
+                            <span class="tag">TVAC Testing</span>
+                            <!-- <span class="tag">Lithium Ion Beams</span> -->
+                            <!-- <span class="tag">SEM Imaging</span> -->
+                            <span class="tag">MATLAB Analysis</span>
+                        </div>
+                        <a href="projects/electrospray.html" class="project-link">View Details →</a>
+                    </div>
+                </div>
+
+                <!-- Search and Rescue Robot -->
+                <div class="project-card">
+                    <!-- <div class="project-image">🤖</div> -->
+                    <div class="project-image"><img src="images/212_robot.png" alt="212 page" style="width:100%; height:100%; object-fit:cover;"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">R3D5 Search and Rescue Robot</h3>
+                        <p class="project-description">Built a search and rescue robot which integrated a UR5 robotic arm and a mobile robot subsystem. Successfully retrieved casualty in course competition and won Best Design award.</p>
+                        <div class="project-tags">
+                            <span class="tag">Robotics</span>
+                            <!-- <span class="tag">Computer Vision</span> -->
+                            <span class="tag">Python</span>
+                            <span class="tag">Custom Controls</span>
+                            <span class="tag">Autonomous Movement</span>
+                        </div>
+                        <a href="projects/search-rescue-robot.html" class="project-link">View Details →</a>
+                    </div>
+                </div>
+
+               <!-- IMDEA Energy Internship -->
+                <div class="project-card">
+                    <!-- <div class="project-image">⚗️</div> -->
+                    <div class="project-image"><img src="images/imdea_page2.png" alt="imdea page" style="width:100%; height:100%; object-fit:cover;"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">IMDEA Energy - Green Hydrogen CFD Research</h3>
+                        <p class="project-description">Modeled fluid flow, heat transfer, and melt fraction trends of phase-change capsules in latent thermal energy storage systems for IMDEA's Green Hydrogen project.</p>
+                        <div class="project-tags">
+                            <span class="tag">Computational Fluid Dynamics</span>
+                            <span class="tag">COMSOL</span>
+                            <span class="tag">Green Hydrogen</span>
+                            <span class="tag">Thermal Energy Storage</span>
+                            <!-- <span class="tag">Heat Transfer</span> -->
+                        </div>
+                        <a href="projects/imdea.html" class="project-link">View Details →</a>
+                    </div>
+                </div>
+
+                <!-- D-Orbit Internship -->
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/dorbit_sat1.jpeg" alt="D-Orbit" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">D-Orbit - Satellite Testing & Control Systems</h3>
+                        <p class="project-description">Interned on D-Orbit's avionics engineering team. Developed satellite testing infrastructure and a GUI to validate EM component functionality before launch.</p>
+                        <div class="project-tags">
+                            <span class="tag">Satellite Avionics</span>
+                            <span class="tag">Arduino</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">C++</span>
+                            <span class="tag">GUI Development</span>
+                        </div>
+                        <a href="projects/dorbit.html" class="project-link">View Details →</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">// Skills</div>
+                <h2 class="section-title">Technical Skills</h2>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Engineering Software</h3>
+                    <div class="skill-list">
+                        <span class="skill-item">MATLAB</span>
+                        <!-- <span class="skill-item">Simulink</span> -->
+                        <span class="skill-item">CAD (Fusion 360, Onshape)</span>
+                        <!-- <span class="skill-item">Onshape</span> -->
+                        <!-- <span class="skill-item">ANSYS</span> -->
+                        <span class="skill-item">COMSOL</span>
+                        <!-- <span class="skill-item">LabVIEW</span> -->
+                        <span class="skill-item">KiCad</span>
+                        <span class="skill-item">MPLAB</span>
+                        <span class="skill-item">3D Printing (PrusaSlicer, Bambu Studio)</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Programming & Tools</h3>
+                    <div class="skill-list">
+                        <span class="skill-item">Python</span>
+                        <span class="skill-item">C++</span>
+                        <span class="skill-item">Julia</span>
+                        <span class="skill-item">ROS2</span>
+                        <span class="skill-item">Linux</span>
+                        <span class="skill-item">HTML/CSS</span>
+                        <span class="skill-item">Git (Github, Bitbucket, Sourcetree)</span>
+                        <!-- <span class="skill-item">Excel</span> -->
+                        <!-- <span class="skill-item">Bitbucket</span>
+                        <span class="skill-item">Sourcetree</span> -->
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Engineering Disciplines</h3>
+                    <div class="skill-list">
+                        <span class="skill-item">Mechatronics</span>
+                        <span class="skill-item">Control Systems</span>
+                        <span class="skill-item">Robotics</span>
+                        <span class="skill-item">CFD Analysis</span>
+                        <span class="skill-item">PCB Design</span>
+                        <span class="skill-item">Propulsion Systems</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="leadership">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">// Portfolio</div>
+                <h2 class="section-title">Leadership</h2>
+            </div>
+            <div class="projects-grid">
+
+                <!-- Volleyball -->
+                <div class="project-card">
+                    <!-- <div class="project-image">🏐</div> -->
+                    <div class="project-image"><img src="images/vball_funny1.jpg" alt="vball page" style="width:100%; height:100%; object-fit:cover;"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">MIT Varsity Volleyball</h3>
+                        <p class="project-description">4-year varsity athlete, libero, and team captain. 4x DIII All-American, Academic All-America First Team, 2x NEWMAC Defensive Player of the Year. Led team to 2 Elite 8 finishes.</p>
+                        <div class="project-tags">
+                            <span class="tag">Libero & Team Captain</span>
+                            <span class="tag">Leadership in Athletics</span>
+                            <!-- <span class="tag">Athletics</span> -->
+                            <!-- <span class="tag">Team Captain</span> -->
+                        </div>
+                        <a href="projects/volleyball.html" class="project-link">View Details →</a>
+                    </div>
+                </div>
+
+                <!-- Threshold Venture Fellows -->
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/stvp_page.png" alt="Threshold Venture Fellows" style="width:100%; height:100%; object-fit:cover;">
+                        <!-- Or use emoji placeholder: -->
+                        <!-- 🚀 -->
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">STVP - Threshold Venture Fellows Program</h3>
+                        <p class="project-description">Selected as 1 of 12 Stanford graduate students for Stanford's STVP Threshold Venture Fellows program – a fellowship providing mentorship from Silicon Valley entrepreneurs, VCs, and industry leaders on launching high growth ventures.</p>
+                        <div class="project-tags">
+                            <span class="tag">Entrepreneurship</span>
+                            <span class="tag">Venture Capital</span>
+                            <span class="tag">Leadership in Engineering</span>
+                            <!-- <span class="tag">Mentorship</span> -->
+                        </div>
+                        <div class="project-link" style="color: var(--text-secondary); cursor: default;">More info coming soon</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">// Background</div>
+                <h2 class="section-title">Experience & Education</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">2025 - 2027</div>
+                    <h3 class="timeline-title">MS Aerospace Engineering</h3>
+                    <div class="timeline-subtitle">Stanford University - Stanford, CA</div>
+                    <p class="timeline-description">Currently pursuing a Masters degree in Aeronautics and Astronautics at Stanford. Degree concentration in robotics, focused on mechatronics, Python/ROS2 software, machine learning, and controls courses.</p>
+                    <p class="timeline-description">Current GPA: 4.1/4.0</p>
+                    <p style="margin-top: 15px;"><a href="coursework/stanford.html" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 500;">→ View all Stanford coursework</a></p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Summer 2025</div>
+                    <h3 class="timeline-title">MIT Portugal Marine Robotics Summer School</h3>
+                    <div class="timeline-subtitle">MIT Portugal - Horta, Faial, Azores</div>
+                    <!-- <p class="timeline-description">Selected as 1 of 12 MIT post-graduate students for an intensive program combining lectures, fieldwork, and projects on marine robotics, oceanography, and ecosystem monitoring.</p> -->
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Fall 2024 - Summer 2025</div>
+                    <h3 class="timeline-title">Undergraduate Researcher</h3>
+                    <div class="timeline-subtitle">MIT Space Propulsion Lab - Cambridge, MA</div>
+                    <!-- <p class="timeline-description">Conducted research on SPL electrospray thrusters. Responsibilities include fabrication optimization, vacuum chamber testing, and performance characterization of thrusters, as dependent on geometric and propellant variations.</p> -->
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Summer 2024</div>
+                    <h3 class="timeline-title">Spacecraft and Avionics Intern</h3>
+                    <div class="timeline-subtitle">Firefly Aerospace - Austin, TX</div>
+                    <!-- <p class="timeline-description">Worked on avionics for Firefly's Blue Ghost Lunar Lander program, the summer before launch. Built and programmed a high-fidelity simulation testbed to verify lunar lander commands and to simulate its thermal control system.</p> -->
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Summer 2023</div>
+                    <h3 class="timeline-title">Computational Fluid Dynamics Intern</h3>
+                    <div class="timeline-subtitle">IMDEA Energy - Madrid, Spain</div>
+                    <!-- <p class="timeline-description">Researched thermal heat storage systems for green hydrogen production using computational fluid dynamics fundamentals and software. Analyzed geometric and material comparisons for capsule energy storage optimization.</p> -->
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Summer 2022</div>
+                    <h3 class="timeline-title">Avionics Intern</h3>
+                    <div class="timeline-subtitle">D-Orbit - Fino Mornasco, Italy</div>
+                    <!-- <p class="timeline-description">Worked on ION Satellite Carrier avionics systems. Programmed an interface to remotely control satellite components and tested capabilities on the satellite electric model.</p> -->
+                </div>
+
+                <!-- <div class="timeline-item">
+                    <div class="timeline-date">2021 - 2024</div>
+                    <h3 class="timeline-title">Varsity Volleyball Team Captain & Libero</h3>
+                    <div class="timeline-subtitle">MIT Women's Volleyball - Cambridge, MA</div> -->
+                    <!-- <p class="timeline-description">Academic All-America First Team, 4x DIII All-American HM, 2x NEWMAC Defensive Player of the Year, 1x NEWMAC Rookie of the Year. Led team to 2 Elite 8 finishes and 3 Conference Championships. Ranked #4 nationally in D3 in 2024.</p> -->
+                <!-- </div> -->
+
+                <div class="timeline-item">
+                    <div class="timeline-date">2021 - 2025</div>
+                    <h3 class="timeline-title">BS Mechanical Engineering</h3>
+                    <div class="timeline-subtitle">Massachusetts Institute of Technology - Cambridge, MA</div>
+                    <p class="timeline-description">Completed a bachelor's of science degree in Mechanical Engineering focused on Computer Science, with a humanities concentration in Economics. Followed a curriculum concentrated on product design, algorithms, robotics, machine learning, and space systems.</p>
+                    <p class="timeline-description">GPA: 4.9/5.0</p>
+                    <p style="margin-top: 15px;"><a href="coursework/mit.html" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 500;">→ View all MIT coursework</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">// Get in Touch</div>
+                <h2 class="section-title">Contact Me</h2>
+            </div>
+            <div class="contact-content" style="display: flex; align-items: center; gap: 60px;">
+                <!-- <div class="contact-info" style="flex: 1;"> -->
+                <div class="contact-info" style="flex: 0 1 500px;">
+                    <h3>Let's Connect</h3>
+                    <p>I'm actively seeking internship opportunities in aerospace engineering, particulary in avionics and space robotics. Feel free to reach out.</p>
+                    <div class="contact-methods">
+                        <a href="mailto:otpers03@stanford.edu" class="contact-method">
+                            <span class="contact-icon">✉️</span>
+                            <div>
+                                <strong>Email</strong><br>
+                                otpers03@stanford.edu
+                            </div>
+                        </a>
+                        <a href="https://www.linkedin.com/in/ottavia-personeni-9b6553221/" class="contact-method">
+                            <span class="contact-icon">💼</span>
+                            <div>
+                                <strong>LinkedIn</strong><br>
+                                Connect with me
+                            </div>
+                        </a>
+                        <a href="documents/resume.pdf" class="contact-method" target="_blank">
+                            <span class="contact-icon">📄</span>
+                            <div>
+                                <strong>Resume</strong><br>
+                                View my resume
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!-- <div style="flex: 0 0 300px;">
+                    <img src="images/headshot.jpeg" alt="Ottavia Personeni" style="width: 500px; height: 500px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent); box-shadow: 0 0 30px rgba(0, 217, 255, 0.3);">
+                </div> -->
+                <div style="flex: 0 0 600px; margin-left: auto;">
+                    <img src="images/headshot.jpeg" alt="Ottavia Personeni" style="width: 500px; height: 500px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent); box-shadow: 0 0 30px rgba(0, 217, 255, 0.3);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/ottavia-personeni-9b6553221/">LinkedIn</a>
+                <a href="mailto:otpers03@stanford.edu">Email</a>
+                <a href="documents/resume.pdf" target="_blank">Resume</a>
+            </div>
+            <p>&copy; 2025 Ottavia Personeni</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll-based animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.project-card, .timeline-item, .skill-category').forEach(el => {
+            el.style.opacity = '0';
+            observer.observe(el);
+        });
+
+        // Form submission (you'll need to connect this to a backend service)
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thanks for reaching out! This form needs to be connected to a backend service to actually send messages. Consider using services like Formspree, EmailJS, or Netlify Forms.');
+        });
+    </script>
+</body>
+</html>

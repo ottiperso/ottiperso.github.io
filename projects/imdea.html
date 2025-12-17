@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMDEA Energy - Ottavia Personeni</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0A1628;
+            --secondary: #1A2F4F;
+            --accent: #00D9FF;
+            --accent-warm: #FF6B35;
+            --text-primary: #E8EDF2;
+            --text-secondary: #A8B2C1;
+            --bg-dark: #05090F;
+            --grid-color: rgba(0, 217, 255, 0.1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.3;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            position: relative;
+            z-index: 1;
+        }
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(5, 9, 15, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+            z-index: 100;
+            padding: 20px 0;
+        }
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .back-link {
+            font-family: 'Space Mono', monospace;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+        .project-header {
+            padding: 120px 0 60px;
+        }
+        .project-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+        .project-title {
+            font-size: 3.5rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            line-height: 1.2;
+        }
+        .project-meta {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .meta-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        .meta-value {
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+        .tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            padding: 8px 16px;
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            color: var(--accent);
+        }
+        .content-section {
+            padding: 60px 0;
+            border-top: 1px solid rgba(0, 217, 255, 0.1);
+        }
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: var(--accent);
+        }
+        .content-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        .content-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .content-section li {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+        .content-section li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        .gallery-item {
+            background: var(--secondary);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            padding: 20px;
+            text-align: center;
+        }
+        .gallery-placeholder {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        .gallery-caption {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .resources {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        .resource-card {
+            background: rgba(26, 47, 79, 0.4);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text-primary);
+            display: block;
+        }
+        .resource-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 217, 255, 0.3);
+        }
+        .resource-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        .resource-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+        .resource-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        footer {
+            background: rgba(10, 22, 40, 0.8);
+            border-top: 1px solid rgba(0, 217, 255, 0.2);
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 80px;
+        }
+        footer p {
+            color: var(--text-secondary);
+        }
+        @media (max-width: 768px) {
+            .project-title {
+                font-size: 2.5rem;
+            }
+            .container {
+                padding: 0 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="../portfolio.html" class="back-link">← Back to Portfolio</a>
+        </div>
+    </nav>
+
+    <section class="project-header">
+        <div class="container">
+            <div class="project-label">// Summer 2023 Internship</div>
+            <h1 class="project-title">IMDEA Energy - Green Hydrogen CFD Research</h1>
+            
+            <div class="project-meta">
+                <div class="meta-item">
+                    <div class="meta-label">Institution</div>
+                    <div class="meta-value">IMDEA Energy Institute</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Location</div>
+                    <div class="meta-value">Madrid, Spain</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Duration</div>
+                    <div class="meta-value">June - August 2023</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Role</div>
+                    <div class="meta-value">CFD Engineering Intern</div>
+                </div>
+            </div>
+
+            <div class="project-tags">
+                <span class="tag">Computational Fluid Dynamics</span>
+                <span class="tag">COMSOL</span>
+                <span class="tag">Green Hydrogen</span>
+                <span class="tag">Thermal Energy Storage</span>
+                <!-- <span class="tag">Heat Transfer</span> -->
+                <!-- <span class="tag">Research</span> -->
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">Project Overview</h2>
+            <div style="display: flex; align-items: flex-start; gap: 30px;">
+                <div style="flex: 1;">
+                    <p>As a Computational Fluid Dynamics Engineering Intern at IMDEA Energy's High Temperature Processes Unit, I contributed to Spain's national green hydrogen initiative, an effort to meet decarbonization objectives for climate neutrality.</p>
+                    <p>My work focused on developing thermal energy storage technologies to optimize renewable electricity to hydrogen conversion efficiency. Specifically, I modeled latent thermal energy storage (LTES) systems using phase change capsule materials to improve the performance of hydrogen production by high temperature electrolysis.</p>
+                </div>
+                <div style="flex: 0 0 400px;">
+                    <img src="../images/imdea_logo2.png" alt="IMDEA Energy Logo" style="width: 100%; height: auto; border: 1px solid rgba(0, 217, 255, 0.2);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">Research Focus</h2>
+            <p>The project addressed a challenge in green hydrogen production: optimizing the connection between renewable electricity generation and electrolyzer operation through thermal energy storage. My CFD work focused on:</p>
+            <div style="display: flex; align-items: flex-start; gap: 30px;">
+                <div style="flex: 1;">
+                    <!-- <p>The project addressed a challenge in green hydrogen production: optimizing the connection between renewable electricity generation and electrolyzer operation through thermal energy storage. My computational fluid dynamics work focused on:</p> -->
+                    <ul>
+                        <li><strong>Fluid Flow Dynamics:</strong> analyzing how heat transfer fluids move through phase change capsules</li>
+                        <li><strong>Melt Fraction Trends:</strong> tracking how phase-change materials transition between solid and liquid states, modeling conduction and convection inside the capsule</li>
+                        <li><strong>System Efficiency:</strong> evaluating overall performance of different configurations to increase electrolyzer efficiency</li>
+                    </ul>
+                </div>
+                <div style="flex: 0 0 500px;">
+                    <img src="../images/imdea_chem.jpg" alt="Chemical Process" style="width: 100%; height: auto; border: 1px solid rgba(0, 217, 255, 0.2);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">My Contributions</h2>
+            <ul>
+                <li>Analyzed capsule characteristics to identify optimal geometries for heat transfer efficiency</li>
+                <li>Compared phase change materials to identify optimal materials for heat transfer efficiency</li>
+                <li>Validated CFD models against experimental data and theoretical predictions</li>
+                <li>Provided data and recommendations for capsule design in a final department wide presentation</li>
+                <li>Contributed findings to a departmental research paper on green hydrogen systems</li>                
+            </ul>
+
+            <h3 style="color: var(--accent); margin-top: 40px; margin-bottom: 20px;">Technical Approach</h3>
+            <p><strong>Simulation Software:</strong> Used CFD fundamentals and COMSOL software to build the phase change capsule computational models.</p>
+            
+            <p><strong>Analysis Parameters:</strong></p>
+            <ul>
+                <li>Geometric comparisons of different capsule configurations (cylindrical, spherical, etc)</li>
+                <li>Material analysis for various phase change materials</li>
+                <!-- <li>Temperature distribution and thermal gradients</li> -->
+                <li>Melting and solidification behavior, thermal gradients</li>
+                <li>Overall system efficiency</li>
+            </ul>
+
+            <!-- Demo Videos -->
+            <div style="display: flex; justify-content: center; gap: 20px; margin-top: 40px; flex-wrap: wrap;">
+                <video controls style="width: 100%; max-width: 350px; border: 1px solid rgba(0, 217, 255, 0.2);">
+                    <source src="../videos/imdea_vid1.MOV" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <video controls style="width: 100%; max-width: 350px; border: 1px solid rgba(0, 217, 255, 0.2);">
+                    <source src="../videos/imdea_vid2.MOV" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <video controls style="width: 100%; max-width: 350px; border: 1px solid rgba(0, 217, 255, 0.2);">
+                    <source src="../videos/imdea_vid3.MOV" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">High Processes Unit – Team & Presentation</h2>
+            <div style="display: flex; justify-content: center; gap: 20px; margin-top: 40px;">
+                <img src="../images/imdea_team.jpeg" alt="team" style="width: 100%; max-width: 600px; height: auto; border: 1px solid rgba(0, 217, 255, 0.2);">
+                <img src="../images/imdea_pres.JPG" alt="award" style="width: 100%; max-width: 600px; height: auto; border: 1px solid rgba(0, 217, 255, 0.2);">
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">Resources</h2>
+            <div class="resources">
+                <a href="../documents/imdea_pres.pdf" target="_blank" class="resource-card">
+                    <div class="resource-icon">📊</div>
+                    <div class="resource-title">Final Presentation</div>
+                    <div class="resource-description">Research findings summary</div>
+                </a>
+                <a href="../documents/imdea_script.pdf" target="_blank" class="resource-card">
+                    <div class="resource-icon">📄</div>
+                    <div class="resource-title">Final Presentation Transcript</div>
+                    <div class="resource-description">For more information, see the final presentation transcript</div>
+                </a>
+                <a href="https://energia.imdea.org/en/" target="_blank" class="resource-card">
+                    <div class="resource-icon">🔗</div>
+                    <div class="resource-title">IMDEA Energy</div>
+                    <div class="resource-description">Learn more about the institute</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Ottavia Personeni</p>
+        </div>
+    </footer>
+</body>
+</html>
