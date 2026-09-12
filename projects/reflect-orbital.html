@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reflect Orbital - Ottavia Personeni</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0A1628;
+            --secondary: #1A2F4F;
+            --accent: #00D9FF;
+            --accent-warm: #FF6B35;
+            --text-primary: #E8EDF2;
+            --text-secondary: #A8B2C1;
+            --bg-dark: #05090F;
+            --grid-color: rgba(0, 217, 255, 0.1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.3;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            position: relative;
+            z-index: 1;
+        }
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(5, 9, 15, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+            z-index: 100;
+            padding: 20px 0;
+        }
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .back-link {
+            font-family: 'Space Mono', monospace;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+        .project-header {
+            padding: 120px 0 60px;
+        }
+        .project-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+        .project-title {
+            font-size: 3.5rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            line-height: 1.2;
+        }
+        .project-meta {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .meta-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        .meta-value {
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+        .tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            padding: 8px 16px;
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            color: var(--accent);
+        }
+        .content-section {
+            padding: 60px 0;
+            border-top: 1px solid rgba(0, 217, 255, 0.1);
+        }
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: var(--accent);
+        }
+        .content-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        .content-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .content-section li {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+        .content-section li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+        .highlight-box {
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid var(--accent);
+            padding: 30px;
+            margin: 40px 0;
+        }
+        .highlight-box h3 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        .gallery-item {
+            background: var(--secondary);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            padding: 20px;
+            text-align: center;
+        }
+        .gallery-placeholder {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        .gallery-caption {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .resources {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        .resource-card {
+            background: rgba(26, 47, 79, 0.4);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text-primary);
+            display: block;
+        }
+        .resource-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 217, 255, 0.3);
+        }
+        .resource-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        .resource-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+        .resource-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        footer {
+            background: rgba(10, 22, 40, 0.8);
+            border-top: 1px solid rgba(0, 217, 255, 0.2);
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 80px;
+        }
+        footer p {
+            color: var(--text-secondary);
+        }
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        .gallery-item {
+            background: var(--secondary);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            padding: 20px;
+            text-align: center;
+        }
+        .gallery-placeholder {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        .gallery-caption {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        @media (max-width: 768px) {
+            .project-title {
+                font-size: 2.5rem;
+            }
+            .container {
+                padding: 0 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="../index.html" class="back-link">← Back to Portfolio</a>
+        </div>
+    </nav>
+
+    <section class="project-header">
+        <div class="container">
+            <div class="project-label">// Summer 2026 Internship</div>
+            <h1 class="project-title">Reflector Orbital - Deployer Team</h1>
+
+            <div class="project-meta">
+                <div class="meta-item">
+                    <div class="meta-label">Company</div>
+                    <div class="meta-value">Reflect Orbital</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Location</div>
+                    <div class="meta-value">Hawthorne, CA</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Duration</div>
+                    <div class="meta-value">June - September 2026</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Role</div>
+                    <div class="meta-value">Mechanical Engineering Intern</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Team</div>
+                    <div class="meta-value">Deployer</div>
+                </div>
+            </div>
+
+            <div class="project-tags">
+                <span class="tag">ESP32 + RasPi5 Firmware</span>
+                <span class="tag">PID Control</span>
+                <span class="tag">Mechatronics</span>
+                <!-- <span class="tag">Optical Metrology</span> -->
+                <span class="tag">Optics</span>
+                <span class="tag">Computer Vision</span>
+                <span class="tag">Test Automation</span>
+                <span class="tag">Resonance Analysis</span>
+                <span class="tag">Onshape / KiCad / C++ / Python</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <div class="highlight-box">
+                <h3>Fleet of Test Rigs, Subsequent Analysis</h3>
+                <p>I designed, built, and operated a fleet of 12 reflector-membrane tensioning and characterization rigs. I was responsible for the mechanical design, electronics, ESP32 firmware, and a wireless dashboard. I used them to characterize how reflectors hold tension and how they respond over a sine sweep of frequencies.<br> Hardware, firmware, and data/analysis pipeline, end to end.</p>
+            </div>
+            <!-- Hero images: swap in when you have cleared photos -->
+            <div style="margin-top: 15px; display: flex; justify-content: center; gap: 20px;">
+                <img src="../images/4rig_sys.jpeg" alt="Rig fleet 1" style="width: 100%; max-width: 550px; height: auto; border: 1px solid rgba(0, 217, 255, 0.2);">
+                <!-- <img src="../images/prof_1side.jpg" alt="Single rig" style="width: 100%; max-width: 550px; height: auto; border: 1px solid rgba(0, 217, 255, 0.2);"> -->
+                <img src="../images/8rig_w_ref.jpg" alt="Rig fleet 2" style="width: 100%; max-width: 550px; height: auto; border: 1px solid rgba(0, 217, 255, 0.2);">
+            </div>
+            <div class="highlight-box">
+                <h3>Goal</h3>
+                <p>The goal was to characterize the reflectors (spring rate, first & second mode frequencies, flatness vs tension relationship, reflectiveness metrics via CV) and inform the controller theory of the reflector in orbit.</p>
+            </div>
+            <div style="margin-top: 15px; display: flex; justify-content: center; gap: 20px;">
+                <!-- <img src="../images/4rig_sys.jpeg" alt="Rig fleet 1" style="width: 100%; max-width: 550px; height: auto; border: 1px solid rgba(0, 217, 255, 0.2);"> -->
+                <img src="../images/prof_1side.jpg" alt="Single rig" style="width: 100%; max-width: 550px; height: auto; border: 1px solid rgba(0, 217, 255, 0.2);">
+                <!-- <img src="../images/8rig_w_ref.jpg" alt="Rig fleet 2" style="width: 100%; max-width: 550px; height: auto; border: 1px solid rgba(0, 217, 255, 0.2);"> -->
+            </div>
+           
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">Project Overview</h2>
+            <p>Reflect Orbital is building a constellation of satellites with large deployable reflectors to deliver sunlight on demand after dark. <!-- CONFIRM: adjust this company description to whatever you're comfortable publishing --></p>
+            <p>As a Mechanical Engineering Intern on the Deployer Team, I built and ran the test infrastructure used to characterize the reflector membranes themselves: how they hold tension, how they respond dynamically, and how accurate their optical surface figure is.</p>
+            <p>Membrane characterization is very important for our mission - to inform our operations and controls in orbit. In turn, these will determine the reflectivity of our mirror and ultimately if we meet our lux requirement.</p>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">My Contributions</h2>
+            <div style="margin-top: 15px; display: flex; justify-content: center; gap: 20px;">
+                <img src="../images/me_w_frame.jpeg" alt="me" style="width: 100%; max-width: 530px; height: 100%; border: 1px solid rgba(0, 217, 255, 0.2);">
+                <img src="../images/8rig_scale.JPEG" alt="scale" style="width: 100%; max-width:600px; height: 100%; border: 1px solid rgba(0, 217, 255, 0.2);">
+            </div>
+            <ul>
+                <p> </p>
+                <li><strong>Rig Fleet 1:</strong> Designed, built, and operated a fleet of 4 reflector-membrane tensioning and characterization rigs</li>
+                <li><strong>Rig Fleet 2:</strong> Scaled to and built a fleet of 8 reflector-membrane tensioning and characterization rigs for a different reflector application</li>
+                <li><strong>Embedded Control:</strong> Wrote ESP32 firmware with PID tension control, load-cell feedback, frequency-sweep drive, automated tests, safety interlocks</li>
+                <li><strong>Wireless Dashboard:</strong> Built wireless GUIs for live monitoring and control across the rig fleets</li>
+                <li><strong>Membrane Dynamics:</strong> Led automated sine-sweep and spring-rate campaigns on reflectors to characterize membrane dynamics</li>
+                <li><strong>Optical Metrology:</strong> Built a Raspberry Pi 5 deflectometry instrument for optical surface-figure measurement of reflectors, with a computer-vision analysis pipeline</li>
+                <li><strong>Test Satellite Parts:</strong> Designed, built, and printed motor adapters such that our satellite's test motors could interface with flight motor brackets.</li>
+                <li><strong>Cross-Team Comms:</strong> Interface with avionics, GNC, deployer, mechanical teams to gather data and align on needs from testing (organized effort via Confluence live doc).</li>
+                <!-- <li><strong>[FILL IN: additional contribution]:</strong> [e.g., calibration campaigns, cross-team test support, integration work]</li> -->
+            </ul>
+            <!-- <p style="margin-top: 30px; color: var(--text-secondary); font-size: 1rem;">* project photos and specific results omitted pending confirmation of what is cleared to share</p> -->
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">Technical Skills</h2>
+            <ul>
+                <li>Embedded firmware development on ESP32, RasPi5, other chips (C/C++)</li>
+                <li>Closed-loop PID control with load-cell force feedback (with deadbands, filters, creep bands)</li>
+                <li>Test automation, data acquisition, and campaign design (+ post-processing for noise mitigation)</li>
+            </ul>
+            <div style="margin-top: 15px; display: flex; justify-content: center; gap: 20px;">
+                <img src="../images/4rig_w_ref.jpeg" alt="4 sys" style="width: 100%; max-width: 550px; height: 100%; border: 1px solid rgba(0, 217, 255, 0.2);">
+                <img src="../images/8rig_gui.png" alt="gui 8" style="width: 100%; max-width: 590px; height: 100%; border: 1px solid rgba(0, 217, 255, 0.2);">
+            </div>
+            <ul>
+                <p> </p>
+                <li>Python data analysis (resonance: phase/amplitude analysis, spring rate plots, etc)</li>
+                <li>Computer vision for optical metrology (deflectometry using OpenCV)</li>
+                <li>Mechanical design and fabrication (OnShape, Prusa, SendCutSend, machining, etc)</li>
+            </ul>
+            <div style="margin-top: 15px; display: flex; justify-content: center; gap: 20px;">
+                <img src="../images/CAD_4rig.png" alt="cad 4" style="width: 100%; max-width: 500px; height: auto; border: 1px solid rgba(0, 217, 255, 0.2);">
+                <img src="../images/CAD_doohickey.png" alt="cad dh" style="width: 100%; max-width: 500px; height: auto; border: 1px solid rgba(0, 217, 255, 0.2);">
+                <img src="../images/CAD_8rig.png" alt="cad 8" style="width: 100%; max-width: 500px; height: auto; border: 1px solid rgba(0, 217, 255, 0.2);">
+            </div>
+        </div>
+        
+        <div class="container">
+            <p> </p>
+            <p>*(actual reflector membrane CAD / images / information omitted)</p>
+        </div>
+    </section>
+
+    <!-- <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">Project Gallery</h2>
+            <div class="image-gallery">
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">🔧</div>
+                    <div class="gallery-caption">Add rig fleet photo here</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">📈</div>
+                    <div class="gallery-caption">Add dashboard or sweep-data screenshot here</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">🔬</div>
+                    <div class="gallery-caption">Add deflectometry instrument photo here</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">🛰️</div>
+                    <div class="gallery-caption">Add team or site photo here</div>
+                </div>
+            </div> -->
+            <!-- To use a real image: replace a gallery-placeholder div with
+            <img src="../images/yourimage.jpg" style="width:100%; height:250px; object-fit:cover;"> -->
+        <!-- </div>
+    </section> -->
+
+    <!-- <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">Results &amp; Impact</h2>
+            <p>[FILL IN: what the characterization campaigns produced and how the Deployer Team used them — e.g., informing tensioning strategy or design decisions.]</p>
+            <p>[FILL IN: a highlight or favorite moment from the summer.]</p>
+        </div>
+    </section> -->
+
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">Videos</h2>
+                    <section class="content-section">
+                        <div class="container">
+                            <h2 class="section-title">Videos</h2>
+                            <div style="margin-top: 15px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                                <figure style="flex: 1 1 300px; max-width: 550px; margin: 0; text-align: center;">
+                                    <video autoplay muted loop playsinline
+                                        style="width: 100%; height: auto; border: 1px solid rgba(0, 217, 255, 0.2);">
+                                        <source src="../videos/rig_ex1_web.mp4" type="video/mp4">
+                                    </video>
+                                    <figcaption style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">Sweep set on GUI, motor begins back/forth motion, the reflector is excited at a lower frequency that gradually increases.</figcaption>
+                                </figure>
+                                <figure style="flex: 1 1 300px; max-width: 550px; margin: 0; text-align: center;">
+                                    <video autoplay muted loop playsinline
+                                        style="width: 100%; height: auto; border: 1px solid rgba(0, 217, 255, 0.2);">
+                                        <source src="../videos/rig_ex2_web.mp4" type="video/mp4">
+                                    </video>
+                                    <figcaption style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">Reflector is being excited at a higher frequency, reflected caustics seen on the ceiling!</figcaption>
+                                </figure>
+                            </div>
+                        </div>
+                    </section>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">Team</h2>
+            <div style="margin-top: 15px; display: flex; justify-content: center; gap: 20px;">
+                <img src="../images/team_lunch.JPEG" alt="team 1" style="width: 100%; max-width: 550px; height: auto; border: 1px solid rgba(0, 217, 255, 0.2);">
+                <img src="../images/team_beach.JPEG" alt="team 2" style="width: 100%; max-width: 550px; height: auto; border: 1px solid rgba(0, 217, 255, 0.2);">
+                <!-- <img src="../images/8rig_w_ref.jpg" alt="Rig fleet 2" style="width: 100%; max-width: 550px; height: auto; border: 1px solid rgba(0, 217, 255, 0.2);"> -->
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">Resources</h2>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 30px; margin-left: 0px; margin-right: 0px;">
+                <a href="https://www.reflectorbital.com/" target="_blank" class="resource-card">
+                    <div class="resource-icon">🛰️</div>
+                    <div class="resource-title">Reflect Orbital</div>
+                    <div class="resource-description">Learn more about the company via their website</div>
+                </a>
+                <a href="https://www.linkedin.com/company/reflectorbital/home/" target="_blank" class="resource-card">
+                    <div class="resource-icon">🛸</div>
+                    <div class="resource-title">Reflect Orbital</div>
+                    <div class="resource-description">Learn more about the company via LinkedIn</div>
+                </a>
+                <!-- <a href="#" class="resource-card">
+                    <div class="resource-icon">📰</div>
+                    <div class="resource-title">[FILL IN: press or mission link]</div>
+                    <div class="resource-description">[FILL IN: description]</div>
+                </a>
+                <a href="#" class="resource-card">
+                    <div class="resource-icon">📄</div>
+                    <div class="resource-title">[FILL IN: report or related link]</div>
+                    <div class="resource-description">[FILL IN: description]</div>
+                </a> -->
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Ottavia Personeni</p>
+        </div>
+    </footer>
+</body>
+</html>
