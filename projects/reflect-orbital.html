@@ -312,7 +312,8 @@
             </div>
 
             <div class="project-tags">
-                <span class="tag">ESP32 + RasPi5 Firmware</span>
+                <!-- <span class="tag">ESP32 + RasPi5 Firmware</span> -->
+                 <span class="tag">ESP32 Firmware</span>
                 <span class="tag">PID Control</span>
                 <span class="tag">Mechatronics</span>
                 <!-- <span class="tag">Optical Metrology</span> -->
@@ -339,7 +340,8 @@
             </div>
             <div class="highlight-box">
                 <h3>Goal</h3>
-                <p>The goal was to characterize the reflectors (spring rate, first & second mode frequencies, flatness vs tension relationship, reflectiveness metrics via CV) and inform the controller theory of the reflector in orbit.</p>
+                <!-- <p>The goal was to characterize the reflectors (spring rate, first & second mode frequencies, flatness vs tension relationship, reflectiveness metrics via CV) and inform the controller theory of the reflector in orbit.</p> -->
+                <p>The goal was to characterize the reflectors: spring rate, first- and second-mode frequencies, flatness vs tension relationship and how their behavior changes across tension settings.</p>
             </div>
             <div style="margin-top: 15px; display: flex; justify-content: center; gap: 20px;">
                 <!-- <img src="../images/4rig_sys.jpeg" alt="Rig fleet 1" style="width: 100%; max-width: 550px; height: auto; border: 1px solid rgba(0, 217, 255, 0.2);"> -->
@@ -354,8 +356,9 @@
         <div class="container">
             <h2 class="section-title">Project Overview</h2>
             <p>Reflect Orbital is building a constellation of satellites with large deployable reflectors to deliver sunlight on demand after dark. <!-- CONFIRM: adjust this company description to whatever you're comfortable publishing --></p>
-            <p>As a Mechanical Engineering Intern on the Deployer Team, I built and ran the test infrastructure used to characterize the reflector membranes themselves: how they hold tension, how they respond dynamically, and how accurate their optical surface figure is.</p>
-            <p>Membrane characterization is very important for our mission - to inform our operations and controls in orbit. In turn, these will determine the reflectivity of our mirror and ultimately if we meet our lux requirement.</p>
+            <p>As a Mechanical Engineering Intern on the Deployer Team, I built and ran the test infrastructure used to characterize the reflector membranes themselves: how they hold tension and how they respond dynamically (plus a vision system to characterize reflectors on the ground and in orbit).</p></p>
+            <!-- <p>Membrane characterization is very important for our mission - to inform our operations and controls in orbit. In turn, these will determine the reflectivity of our mirror and ultimately if we meet our lux requirement.</p> -->
+            <p>Accurate membrane characterization is necessary to understand how the reflectors perform once deployed / how they should be controlled.</p>
         </div>
     </section>
 
@@ -373,8 +376,9 @@
                 <li><strong>Embedded Control:</strong> Wrote ESP32 firmware with PID tension control, load-cell feedback, frequency-sweep drive, automated tests, safety interlocks</li>
                 <li><strong>Wireless Dashboard:</strong> Built wireless GUIs for live monitoring and control across the rig fleets</li>
                 <li><strong>Membrane Dynamics:</strong> Led automated sine-sweep and spring-rate campaigns on reflectors to characterize membrane dynamics</li>
-                <li><strong>Optical Metrology:</strong> Built a Raspberry Pi 5 deflectometry instrument for optical surface-figure measurement of reflectors, with a computer-vision analysis pipeline</li>
-                <li><strong>Test Satellite Parts:</strong> Designed, built, and printed motor adapters such that our satellite's test motors could interface with flight motor brackets.</li>
+                <!-- <li><strong>Optical Metrology:</strong> Built a Raspberry Pi 5 deflectometry instrument for optical surface-figure measurement of reflectors, with a computer-vision analysis pipeline</li> -->
+                <li><strong>Vision System:</strong> Built a vision system to characterize reflectors on the ground and in orbit</li>
+                <li><strong>Test Satellite Parts:</strong> Designed and built motor adapters for test motors with flight brackets.</li>
                 <li><strong>Cross-Team Comms:</strong> Interface with avionics, GNC, deployer, mechanical teams to gather data and align on needs from testing (organized effort via Confluence live doc).</li>
                 <!-- <li><strong>[FILL IN: additional contribution]:</strong> [e.g., calibration campaigns, cross-team test support, integration work]</li> -->
             </ul>
@@ -386,18 +390,21 @@
         <div class="container">
             <h2 class="section-title">Technical Skills</h2>
             <ul>
-                <li>Embedded firmware development on ESP32, RasPi5, other chips (C/C++)</li>
+                <!-- <li>Embedded firmware development on ESP32, RasPi5, other chips (C/C++)</li> -->
+                <li>Embedded firmware development on ESP32 and other embedded platforms (C/C++)</li>
                 <li>Closed-loop PID control with load-cell force feedback (with deadbands, filters, creep bands)</li>
                 <li>Test automation, data acquisition, and campaign design (+ post-processing for noise mitigation)</li>
             </ul>
             <div style="margin-top: 15px; display: flex; justify-content: center; gap: 20px;">
-                <img src="../images/4rig_w_ref.jpeg" alt="4 sys" style="width: 100%; max-width: 550px; height: 100%; border: 1px solid rgba(0, 217, 255, 0.2);">
+                <!-- <img src="../images/4rig_w_ref.jpeg" alt="4 sys" style="width: 100%; max-width: 550px; height: 100%; border: 1px solid rgba(0, 217, 255, 0.2);"> -->
+                <img src="../images/4rig_w_ref_om.jpeg" alt="4 sys" style="width: 100%; max-width: 550px; height: 100%; border: 1px solid rgba(0, 217, 255, 0.2);">
                 <img src="../images/8rig_gui.png" alt="gui 8" style="width: 100%; max-width: 590px; height: 100%; border: 1px solid rgba(0, 217, 255, 0.2);">
             </div>
             <ul>
                 <p> </p>
                 <li>Python data analysis (resonance: phase/amplitude analysis, spring rate plots, etc)</li>
-                <li>Computer vision for optical metrology (deflectometry using OpenCV)</li>
+                <!-- <li>Computer vision for optical metrology (deflectometry using OpenCV)</li> -->
+                <li>Computer vision for reflector characterization</li>
                 <li>Mechanical design and fabrication (OnShape, Prusa, SendCutSend, machining, etc)</li>
             </ul>
             <div style="margin-top: 15px; display: flex; justify-content: center; gap: 20px;">
@@ -409,7 +416,8 @@
         
         <div class="container">
             <p> </p>
-            <p>*(actual reflector membrane CAD / images / information omitted)</p>
+            <!-- <p>*(actual reflector membrane CAD / images / information omitted)</p> -->
+            <p>*(reflector geometry, CAD, manufacturing details, and vision-system specifics omitted)</p>
         </div>
     </section>
 
@@ -457,14 +465,16 @@
                                 <figure style="flex: 1 1 300px; max-width: 550px; margin: 0; text-align: center;">
                                     <video autoplay muted loop playsinline
                                         style="width: 100%; height: auto; border: 1px solid rgba(0, 217, 255, 0.2);">
-                                        <source src="../videos/rig_ex1_web.mp4" type="video/mp4">
+                                        <!-- <source src="../videos/rig_ex1_web.mp4" type="video/mp4"> -->
+                                        <source src="../videos/rig_ex1_web_om.mp4" type="video/mp4">
                                     </video>
                                     <figcaption style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">Sweep set on GUI, motor begins back/forth motion, the reflector is excited at a lower frequency that gradually increases.</figcaption>
                                 </figure>
                                 <figure style="flex: 1 1 300px; max-width: 550px; margin: 0; text-align: center;">
                                     <video autoplay muted loop playsinline
                                         style="width: 100%; height: auto; border: 1px solid rgba(0, 217, 255, 0.2);">
-                                        <source src="../videos/rig_ex2_web.mp4" type="video/mp4">
+                                        <!-- <source src="../videos/rig_ex2_web.mp4" type="video/mp4"> -->
+                                        <source src="../videos/rig_ex2_web_om.mp4" type="video/mp4">
                                     </video>
                                     <figcaption style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem;">Reflector is being excited at a higher frequency, reflected caustics seen on the ceiling!</figcaption>
                                 </figure>
@@ -492,7 +502,7 @@
                 <a href="https://www.reflectorbital.com/" target="_blank" class="resource-card">
                     <div class="resource-icon">🛰️</div>
                     <div class="resource-title">Reflect Orbital</div>
-                    <div class="resource-description">Learn more about the company via their website</div>
+                    <div class="resource-description">Learn more about the company via the website</div>
                 </a>
                 <a href="https://www.linkedin.com/company/reflectorbital/home/" target="_blank" class="resource-card">
                     <div class="resource-icon">🛸</div>
